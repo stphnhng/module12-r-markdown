@@ -1,117 +1,116 @@
-# Module 11: R Markdown
+# Module 12: R Markdown
 
+R Markdown is a package that supports using `R` to dynamically creating _documents_, such as websites (`.html` files), reports (`.pdf` files), slideshows (using `ioslides/slidy`), and even interactive apps (using `shiney`).
+As you may have guessed, R Markdown does this by providing the ability to blend Markdown syntax and `R` code so that, when executed, scripts will automatically injec your results into a formatted document. The ability to automatically generate reports and documents from a computer script eliminates the need to manually update the _results_ of a data analysis project, enabling you to more effectively share the _information_ that you've produced from your data.
 
-## Overview
-R Markdown provides an extraordinary framework for dynamically creating documents, such as websites (`.html`), reports (`.pdf`), or slideshows (`ioslides/slidy`). The ability to generate such reports using analytical software eliminates the need to manually update the _results_ of a research project. As you may have guessed, R Markdown provides an ability to blend Markdown syntax and R code that, when executed, enable you to inject your results into a beautifully formatted document.  
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Contents**
 
-<!-- START doctoc -->
-<!-- END doctoc -->
+- [Resources](#resources)
+- [R Markdown and RStudio](#r-markdown-and-rstudio)
+  - [Creating `.Rmd` Files](#creating-rmd-files)
+  - [`.Rmd` Content](#rmd-content)
+  - [Knitting Documents](#knitting-documents)
+  - [HTML?](#html)
+- [R Markdown Syntax](#r-markdown-syntax)
+  - [Code Blocks](#code-blocks)
+  - [Inline Code](#inline-code)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Resources
 - [R Markdown Homepage](http://rmarkdown.rstudio.com/)
-- [R Markdown Cheatsheet](https://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf)
-- [R Markdown Reference](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
+- [R Markdown Cheatsheet](https://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf) (really useful!)
+- [R Markdown Reference](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf) (really useful!)
+- [`knitr`](https://yihui.name/knitr/)
 
-## Getting Started
-The easiest way to start using R Markdown is by creating a new `.Rmd` document from within R Studio. Using your **File** menu, you'll want to create a new document:
+## R Markdown and RStudio
+R Markdown documents are created from a combination of two libraries: `rmarkdown` (which process the markdown and generates the output) and `knitr` (which runs R code and produces markdown like output). These packages are already included in RStudio, which provides built-in support for creating and viewing R Markdown documents.
 
-![create a new rmd document](imgs/new-rmd.png)
+### Creating `.Rmd` Files
+The easiest way to begin a new document is to use the **File > New File > R Markdown** menu option:
+
+![Menu to create a new R Markdown document](img/new-file.png)
+
+RStudio will then prompt you to provide some additional details abour what kind of R Markdown document you want. In particular, you will need to choose a default _document type_ and _output format_. You can also provide a title and author information which will be included in the document. In this module we'll focus on creating HTML documents (websites; the default format)&mdash;other formats require the installation of additional software.
+
+![Specify document type](img/document-type.png)
 
 Once you've chosen _R Markdown_ as your desired file type, you'll be prompted to choose a default _document type_ and _output format_ that you would like to create. In this module, we'll discuss creating `.html` documents (websites):
 
 ![select document type](imgs/doc-type.png)
 
-Once you have chosen your desired document type and output format, R Studio will create open up a new text document with extension `.Rmd` with sample code for you to get started with:
+Once you've chosen your desired document type and output format, RStudio will open up a new script file for you. The file contains some example code for you.
 
-![sample r studio code](imgs/sample-code.png)
+### `.Rmd` Content
+At the top of the file is some text that has the format:
+
+```yaml
+---
+title: "Example"
+author: "YOUR NAME HERE"
+date: "1/30/2017"
+output: html_document
+---
+```
+
+This is the document "header" information, which tells R Markdown details about the file and how the file should be processed. For example, the `title`, `author`, and `date` will automatically be added to the top of your document. You can include additional information as well, such as [whether there should be a table of contents](http://rmarkdown.rstudio.com/html_document_format.html) or even [variable default](http://rmarkdown.rstudio.com/developer_parameterized_reports.html).
+
+The header is written in [YAML](https://en.wikipedia.org/wiki/YAML) format, which is yet another way of formatting structured data similar to `.csv` or JSON (in fact, YAML is a superset of JSON and can represent the same data structure, just using indentation and dashes instead of braces and commas).
+
+After this header you will find two types of contents: normal Markdown text like you learned in Module 3 (e.g., `## R Markdown` for a second-level heading), and blocks of `R` code. The `R` code looks like a normal code block element (using ` ``` `), but with an extra `{r}` immediately after the backticks. See below for more details about this format.
+
+**Important** This file should be saved with the extension **`.Rmd`** (for "R Markdown"), which tells the computer and RStudio that the document contains Markdown content with embedded `R` code.
+
+### Knitting Documents
+RStdudio provides an easy interface to compile your `.Rmd` source code into an actual document (a process called "knitting"). Simply click the **Knit** button at the top of the script panel:
+
+![Knit button](img/knit-button.png)
+
+This will generate the document (in the same directory as your `.Rmd` file), as well as open up a preview window in RStudio.
+
+While it is easy to generate such documents, the knitting process can make it hard to debug errors in your `R` code (whether syntax or logical), in part because the output may or may not show up in the document! I suggest that you write complex `R` code in another script and then simply copy or `source()` that script into your `.Rmd` file. Additionally, be sure and knit your document frequently, paying close atention to any errors that appear in the console.
+
+### HTML?
+Assuming that you've chosen HTML as your desired output type, RStudio will compile your `.Rmd` into an `.html` file. HTML stands for _**H**yper**T**ext **M**arkup **L**anguage_ and like Markdown is a syntax for describing the structure and formatting of content (mostly the structure!), though HTML is **far** more extensive and detailed. In particular, HTML is a is a markup language that can be rendered by web browsers, and thus is the language used to create web pages. Thus the `.html` files you create could be put online as web pages for others to view&mdash;we will learn how to do this in a future module. For now, you can open a `.html` file in any browser (such as by double-clicking on the file) to see the content outside of RStudio!
+
 
 ## R Markdown Syntax
-Once you have your `.Rmd` file open in R Studio, you're ready to start writing R Markdown code. The section at the top inside the dash block (`---`) contains meta-information about how you would like to render your document. After this section, you can begin writing Markdown code using (largely) the same syntax you learned in [module-3](https://github.com/INFO-201/m3-markdown).
+What makes R Markdown distinct from simple Markdown code is the ability to actually _execute your `R` code and include the output directly in the document_. `R` code can be executed and included in the document in blocks of code, or even inline in the document!
 
-### Code Chunks
-What makes R Markdown distinct from simple Markdown code is the ability to actually **execute your R code**, both inline or inside of code blocks. To execute a code block, simply include `{r}` after the start of your three back-ticks (\`\`\`). For example
+### Code Blocks
+To specify an executed code block (rather than text that is simply formatted as code), you need to include **`{r}`** immediately after the backticks that start the code block (the ` ``` `). For example
 
-```
-Write some *markdown* out here, then create a code block:
+```md
+Write normal *markdown* out here, then create a code block:
+
 ```{r}
 # Execute r code in here
 x <- 1
-``` # end with three back ticks
+``` # end the code block
+
 Back to writing _markdown_ out here.
 ```
 
-Most of the configuration you'll want to do is inside the curly braces when you start your code (`{r, OPTIONS}`). The options that you specify will dictate what gets printed to the screen upon document creation. The [cheatsheet](https://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf) provides a more robust list, but most often you'll be adusting:
+It is also possible to do additional configuration option by including a comma-separate list of named arguments (like we've done with lists and functions) inside the curly braces following the `r`:
 
-> **eval**: Whether or not you want the code to be evaluated (default=TRUE). This may be helpful if you want to show someone the code you wrote, but don't want to execute it
+```r
+```{r echo=FALSE, message=TRUE}
+# ...
+``` # end code block
+```
 
-> **echo**: Whether or not you want the results to be included in the document (default=TRUE). This may be useful if you want to show a graph, or the result of your calculation.
+There are [many options](https://yihui.name/knitr/options/) (see also the [reference](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)). However the most useful ones have to do with how the code is outputted in the the document. For example
 
-Note, to suppress other information from being included in the final document, you may have to adjust other options such as `message` or `warning`.
+- **`echo`** indicates whether you want the _`R` code itself_ to be displayed in the document (e.g., if you want readers to be able to see your work and reproduce your calculations and analysis). Value is either `TRUE` (do display) or `FALSE` (do not display).
+- **`message`** indicates whether you want any messages generated by the code to be displayed. This includes print statements! Value is either `TRUE` (do display) or `FALSE` (do not display).
 
 ### Inline Code
-In addition to creating distinct code blocks, you may want to execute r code _inline_ with the rest of your text. As with code blocks, you'll follow the Markdown convention of using single back-ticks, and simply follow your first backtick with the letter `r`. For example:
+In addition to creating distinct code blocks, you may want to execute `R` code _inline_ with the rest of your text, such as to include a variable result inside a paragraph of text. As with code blocks, you'll follow the Markdown convention of using single backticks (**`` ` ``**), but put the letter **`r`** imediately after the first backtick. For example:
 
 ```
-Here you are writing a report, and then you can run inline R code. Like if you wanted to calculate 3 + 4, you could do it like this: `r 3 + 4`
-```
-When you compile the section above, the `r 3 + 4` would be replaced with the number `7`. Note, you can also reference values computed in the code blocks preceding your inline code.
-
-## Compiling Documents
-Compiling documents in through the R Studio interface is quite simple. Simply click the `knit` button at the top of your code editor, and your document will be created (in the same directory as your `.Rmd` file):
-
-![knit button in r studio](imgs/knit-button.png)
-
-While this is easy to initialize, you may find yourself encountering syntax errors, which can be a bit hard to debug. I suggest you compile your document somewhat frequently, and pay close attention to any error messages that appear in your console.
-
-## Making Websites
-Assuming that you've chosen `.html` as your desired output type, R Studio will compile your code into a document that represents a website. HTML stands for _HyperText Markup Language_, which is a syntax for creating documents that can be rendered by web browsers. HTML code is in may ways similar to Markdown, in that each visible element on the page is represented in the code, along with syntax that describes how elements should be rendered (though HTML is _far more_ extensive than Markdown).
-
-R Studio will provide a preview of your `.html` documents, but you can also open the file in a web browser. However, you likely want to share your website you create with the rest of the world. To do that, we can use a few tricks to get GitHub to host websites.
-
-### Using GitHub to Host Websites
-In addition to hosting code files, GitHub also will host static web content **for free**. If you create the proper _branch name_ (see below), GitHub will automatically start serving your website at the appropriate URL. If you ever see a website with `USERNAME.github.io/PROJECT`, you should be able to find the code at `github.com/USERNAME/PROJECT`. For example, the website http://facebook.github.io/origami/ has the corresponding `index.html` file at https://github.com/facebook/origami/.
-
-### Branches
-All quarter, we've subtly been using the concept of GitHub _branches_ to keep a `master` and `complete` version of the exercises. Branches allow you to create separate streams of development on a single project. This is often used for more robust or collaborative projects, but in this case, we really just want to create a second branch with the _same content_ in it.
-
-You can create a branch off of an existing branch using the following command:
-
-```bash
-git checkout -b branch-name
-```
-That creates a branch with name `branch-name`. You can easily switch back to your master branch using the following command:
-
-```bash
-git checkout master
-```
-Note, the `-b` in the first code section indicated that you wanted to create a new branch. For our purposes, we'll want to create a branch with name `gh-pages`, and make sure to **push it** up to GitHub:
-
-```bash
-git checkout -b gh-pages
-git push origin --all # alternatively, git push origin complete
+If we want to calculate 3 + 4 inside some text, we can use `r 3 + 4` right in the _middle_.
 ```
 
-Make sure to keep track of which branch your on using `git status`. For this flow of development, I suggest that you always work on your master branch, and if you make changes, simply **merge** them into your `complete` branch:
-
-```bash
-# Create gh-pages branch from master branch
-git checkout -b gh-pages
-
-# Switch back to master branch
-git checkout master
-
-# Make some changes, then add and commit as usual
-git add .
-git commit -m "Made more changes here on the master branch"
-
-# Switch back to your gh-pages branch
-git checkout gh-pages
-
-# Merge in your changes into your gh-pages branch from your master branch
-git merge master
-
-# Push all changes up to GitHub
-git push origin --all
-```
-
-We'll discuss more advanced Git approaches in future modules, but to keep this workflow, you should **not make changes on your gh-pages branch**.
+When you compile the above text, the `` `r 3+4` `` When you compile the section above, the `r 3 + 4` would be replaced with the number `7`. Note you can also reference values computed in the code blocks preceding your inline code; it is code practice to do your calculations in a code block (with `echo=FALSE`), save the result in a variable, and then simply inline that variable: `` `r my.variable` ``.
