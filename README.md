@@ -37,9 +37,7 @@ RStudio will then prompt you to provide some additional details abour what kind 
 
 ![Specify document type](img/document-type.png)
 
-Once you've chosen _R Markdown_ as your desired file type, you'll be prompted to choose a default _document type_ and _output format_ that you would like to create. In this module, we'll discuss creating `.html` documents (websites):
-
-![select document type](imgs/doc-type.png)
+Once you've chosen _R Markdown_ as your desired file type, you'll be prompted to choose a default _document type_ and _output format_ that you would like to create. In this module, we'll discuss creating HTML documents (websites).
 
 Once you've chosen your desired document type and output format, RStudio will open up a new script file for you. The file contains some example code for you.
 
