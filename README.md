@@ -57,7 +57,7 @@ This is the document "header" information, which tells R Markdown details about 
 
 The header is written in [YAML](https://en.wikipedia.org/wiki/YAML) format, which is yet another way of formatting structured data similar to `.csv` or JSON (in fact, YAML is a superset of JSON and can represent the same data structure, just using indentation and dashes instead of braces and commas).
 
-After this header you will find two types of contents: normal Markdown text like you learned in Module 3 (e.g., `## R Markdown` for a second-level heading), and blocks of `R` code. The `R` code looks like a normal code block element (using ` ``` `), but with an extra `{r}` immediately after the backticks. See below for more details about this format.
+After this header you will find two types of contents: normal Markdown text like you learned in Module 3 (e.g., `## R Markdown` for a second-level heading), and blocks of `R` code. The `R` code looks like a normal code block element (using <code>\`\`\`</code>), but with an extra `{r}` immediately after the backticks. See below for more details about this format.
 
 **Important** This file should be saved with the extension **`.Rmd`** (for "R Markdown"), which tells the computer and RStudio that the document contains Markdown content with embedded `R` code.
 
@@ -78,7 +78,7 @@ Assuming that you've chosen HTML as your desired output type, RStudio will compi
 What makes R Markdown distinct from simple Markdown code is the ability to actually _execute your `R` code and include the output directly in the document_. `R` code can be executed and included in the document in blocks of code, or even inline in the document!
 
 ### Code Blocks
-To specify an executed code block (rather than text that is simply formatted as code), you need to include **`{r}`** immediately after the backticks that start the code block (the ` ``` `). For example
+To specify an executed code block (rather than text that is simply formatted as code), you need to include **`{r}`** immediately after the backticks that start the code block (the <code>\`\`\`</code>). For example
 
 ```md
 Write normal *markdown* out here, then create a code block:
